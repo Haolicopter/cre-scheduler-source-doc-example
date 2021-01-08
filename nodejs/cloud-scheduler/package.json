@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "express": "^4.16.4",
-    "cloudevents": "^4.0.0"
+    "cloudevents": "^4.0.0",
+    "@google/events": "^3.2.1"
   },
   "devDependencies": {
     "got": "^11.5.0",

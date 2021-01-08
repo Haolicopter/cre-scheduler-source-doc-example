@@ -16,11 +16,13 @@
 const express = require('express');
 const app = express();
 const { HTTP } = require("cloudevents");
+const {toSchedulerJobData} = require('@google/events/cloud/scheduler/v1/SchedulerJobData');
 
 app.use(express.json());
 app.post('/', (req, res) => {
   const receivedEvent = HTTP.toEvent({ headers: req.headers, body: req.body });
-  console.log(`Cloud Scheduler executed a job (id: ${receivedEvent['id']}) at ${receivedEvent['time']}`);
+  const data = toSchedulerJobData(receivedEvent);
+  console.log(`Cloud Scheduler executed a job (id: ${data.id}) at ${data.time}`);
   return res
     .status(200)
     .send('');
