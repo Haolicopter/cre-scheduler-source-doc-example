@@ -16,6 +16,7 @@
 import os
 
 from flask import Flask, request
+from cloudevents.http import from_http
 
 app = Flask(__name__)
 # [END event_receiver]
@@ -23,12 +24,11 @@ app = Flask(__name__)
 # [START event_handler]
 @app.route('/', methods=['POST'])
 def index():
-    # Get the event id and time from the CloudEvent header
-    id = request.headers.get('ce-id')
-    time = request.headers.get('ce-time')
+    # Create a CloudEvent
+    event = from_http(request.headers, request.get_data())
 
-    print(f"Cloud Scheduler executed a job (id: {id}) at {time}")
-    return (f"Cloud Scheduler executed a job (id: {id}) at {time}", 200)
+    print(f"Cloud Scheduler executed a job (id: {event['id']}) at {event['time']}")
+    return (f"Cloud Scheduler executed a job (id: {event['id']}) at {event['time']}", 200)
 # [END event_handler]
 
 # [START event_receiver]
