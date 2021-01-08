@@ -28,7 +28,9 @@ func HelloEventsScheduler(w http.ResponseWriter, r *http.Request) {
 	s := fmt.Sprintf("Cloud Scheduler executed a job (id: %s) at %s", string(r.Header.Get("ce-id")), string(r.Header.Get("ce-time")))
 	
 	log.Printf(s)
-	fmt.Fprintln(w, s)
+	fmt.Println(s)
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(""))
 }
 
 // [END event_handler]
