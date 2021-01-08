@@ -23,7 +23,7 @@ app.post('/', (req, res) => {
   console.log(`Cloud Scheduler executed a job (id: ${receivedEvent['id']}) at ${receivedEvent['time']}`);
   return res
     .status(200)
-    .send(`Cloud Scheduler executed a job (id: ${receivedEvent['id']}) at ${receivedEvent['time']}`);
+    .send('');
 });
 
 module.exports = app;

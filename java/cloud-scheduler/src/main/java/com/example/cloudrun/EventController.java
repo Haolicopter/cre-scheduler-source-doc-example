@@ -49,7 +49,7 @@ public class EventController {
     String ceTime = headers.get("ce-time");
     String msg = "Cloud Scheduler executed a job (id: " + ceId + ") at " + ceTime;
     System.out.println(msg);
-    return new ResponseEntity<String>(msg, HttpStatus.OK);
+    return new ResponseEntity<String>("", HttpStatus.OK);
   }
 }
 // [END event_handler]

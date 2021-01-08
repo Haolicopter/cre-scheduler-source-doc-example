@@ -56,7 +56,7 @@ public class Startup
                 }
 
                 logger.LogInformation($"Cloud Scheduler executed a job (id: {ceId}) at {ceTime}");
-                await context.Response.WriteAsync($"Cloud Scheduler executed a job (id: {ceId}) at {ceTime}");
+                await context.Response.WriteAsync("");
             });
         });
     }

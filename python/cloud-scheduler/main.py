@@ -28,7 +28,7 @@ def index():
     event = from_http(request.headers, request.get_data())
 
     print(f"Cloud Scheduler executed a job (id: {event['id']}) at {event['time']}")
-    return (f"Cloud Scheduler executed a job (id: {event['id']}) at {event['time']}", 200)
+    return ("", 200)
 # [END event_handler]
 
 # [START event_receiver]
