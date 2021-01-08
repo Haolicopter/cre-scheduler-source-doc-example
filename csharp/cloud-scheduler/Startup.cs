@@ -20,6 +20,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using CloudNative.CloudEvents;
+using Google.Events;
+using Google.Events.Protobuf.Cloud.Scheduler.V1;
 
 public class Startup
 {
@@ -47,6 +50,10 @@ public class Startup
                 var ceId = context.Request.Headers["ce-id"];
                 var ceTime = context.Request.Headers["ce-time"];
                 logger.LogInformation($"ce-id: {ceId}");
+
+                var cloudEvent = await context.Request.ReadCloudEventAsync();
+                var data = CloudEventConverters.ConvertCloudEventData<SchedulerJobData>(cloudEvent);
+                logger.LogInformation($"Scheduler data: {data.CustomData.ToBase64()}");
 
                 if (string.IsNullOrEmpty(ceId))
                 {

@@ -114,13 +114,15 @@ info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
 info: Startup[0]
       Handling HTTP POST
 info: Startup[0]
-      ce-id: 1897137492667843
+      ce-id: 1897976220196970
 info: Startup[0]
-      Cloud Scheduler executed a job (id: 1897137492667843) at 2021-01-07T17:50:00.221Z
+      Scheduler data: dHJpZ2dlci1zY2hlZHVsZXItZGF0YQ==
+info: Startup[0]
+      Cloud Scheduler executed a job (id: 1897976220196970) at 2021-01-08T05:09:00.224Z
 info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
       Executed endpoint '/ HTTP: POST'
 info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
-      Request finished in 0.0812ms 200
+      Request finished in 0.2142ms 200
 info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
       Request starting HTTP/1.1 POST http://cloud-run-service-csharp.test.svc.cluster.local/ application/json 50
 info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
@@ -128,27 +130,15 @@ info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
 info: Startup[0]
       Handling HTTP POST
 info: Startup[0]
-      ce-id: 1897159988646212
+      ce-id: 1897299878966170
 info: Startup[0]
-      Cloud Scheduler executed a job (id: 1897159988646212) at 2021-01-07T18:11:00.777Z
+      Scheduler data: dHJpZ2dlci1zY2hlZHVsZXItZGF0YQ==
+info: Startup[0]
+      Cloud Scheduler executed a job (id: 1897299878966170) at 2021-01-07T19:52:00.782Z
 info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
       Executed endpoint '/ HTTP: POST'
 info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
-      Request finished in 0.0763ms 200
-info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
-      Request starting HTTP/1.1 POST http://cloud-run-service-csharp.test.svc.cluster.local/ application/json 50
-info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
-      Executing endpoint '/ HTTP: POST'
-info: Startup[0]
-      Handling HTTP POST
-info: Startup[0]
-      ce-id: 1897167616274567
-info: Startup[0]
-      Cloud Scheduler executed a job (id: 1897167616274567) at 2021-01-07T18:21:00.089Z
-info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
-      Executed endpoint '/ HTTP: POST'
-info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
-      Request finished in 0.1331ms 200
+      Request finished in 0.3448ms 200
 [...]
 ```
 
