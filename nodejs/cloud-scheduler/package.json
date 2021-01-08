@@ -19,7 +19,8 @@
     "system-test": "test/runner.sh mocha test/system.test.js --timeout=10000"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "cloudevents": "^4.0.0"
   },
   "devDependencies": {
     "got": "^11.5.0",

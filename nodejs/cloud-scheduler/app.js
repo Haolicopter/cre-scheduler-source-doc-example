@@ -15,13 +15,15 @@
 // [START event_handler]
 const express = require('express');
 const app = express();
+const { HTTP } = require("cloudevents");
 
 app.use(express.json());
 app.post('/', (req, res) => {
-  console.log(`Cloud Scheduler executed a job (id: ${req.header('ce-id')}) at ${req.header('ce-time')}`);
+  const receivedEvent = HTTP.toEvent({ headers: req.headers, body: req.body });
+  console.log(`Cloud Scheduler executed a job (id: ${receivedEvent['id']}) at ${receivedEvent['time']}`);
   return res
     .status(200)
-    .send(`Cloud Scheduler executed a job (id: ${req.header('ce-id')}) at ${req.header('ce-time')}`);
+    .send(`Cloud Scheduler executed a job (id: ${receivedEvent['id']}) at ${receivedEvent['time']}`);
 });
 
 module.exports = app;
