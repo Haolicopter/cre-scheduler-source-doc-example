@@ -17,24 +17,19 @@ package main
 import (
 	"io/ioutil"
 	"log"
-	"net/http"
-	"net/http/httptest"
 	"os"
 	"strings"
 	"testing"
+	"time"
+
+	cloudevents "github.com/cloudevents/sdk-go/v2"
 )
 
-func TestHelloEventsScheduler(t *testing.T) {
+func TestReceive(t *testing.T) {
 	tests := []struct {
-		id string
-		time string
 		want string
 	}{
-		{
-			id: "test-id",
-			time: "test-time",
-			want: "Cloud Scheduler executed a job (id: test-id) at test-time\n",
-		},
+		{want: "Cloud Scheduler executed a job (id: test-id)"},
 	}
 	for _, test := range tests {
 		r, w, _ := os.Pipe()
@@ -45,25 +40,23 @@ func TestHelloEventsScheduler(t *testing.T) {
 		defer log.SetFlags(originalFlags)
 		log.SetFlags(log.Flags() &^ (log.Ldate | log.Ltime))
 
-		payload := strings.NewReader("{}")
-		req := httptest.NewRequest("POST", "/", payload)
-		req.Header.Set("ce-id", test.id)
-		req.Header.Set("ce-time", test.time)
-		rr := httptest.NewRecorder()
-		HelloEventsScheduler(rr, req)
+		// Create an Event.
+		event := cloudevents.NewEvent()
+		event.SetSource("test-uri")
+		event.SetType("test-type")
+		event.SetID("test-id")
+		event.SetTime(time.Now())
+
+		receive(event)
 
 		w.Close()
-
-		if code := rr.Result().StatusCode; code == http.StatusBadRequest {
-			t.Errorf("HelloEventsScheduler(%q, %q) invalid input, status code (%q)", test.id, test.time, code)
-		}
 
 		out, err := ioutil.ReadAll(r)
 		if err != nil {
 			t.Fatalf("ReadAll: %v", err)
 		}
-		if got := string(out); got != test.want {
-			t.Errorf("HelloEventsScheduler(%q, %q): got %q, want %q", test.id, test.time, got, test.want)
+		if got := string(out); !strings.HasPrefix(got, test.want) {
+			t.Errorf("Receive(): got %q, want %q", got, test.want)
 		}
 	}
 }

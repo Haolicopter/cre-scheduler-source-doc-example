@@ -17,37 +17,29 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log"
-	"net/http"
-	"os"
+
+	cloudevents "github.com/cloudevents/sdk-go/v2"
 )
 
-// HelloEventsScheduler receives and processes a Pub/Sub message via a CloudEvent.
-func HelloEventsScheduler(w http.ResponseWriter, r *http.Request) {
-	s := fmt.Sprintf("Cloud Scheduler executed a job (id: %s) at %s", string(r.Header.Get("ce-id")), string(r.Header.Get("ce-time")))
-	
+func receive(event cloudevents.Event) {
+	s := fmt.Sprintf("Cloud Scheduler executed a job (id: %s) at %s", event.Context.GetID(), event.Context.GetTime())
 	log.Printf(s)
-	fmt.Println(s)
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(""))
 }
 
 // [END event_handler]
 // [START event_receiver]
 
 func main() {
-	http.HandleFunc("/", HelloEventsScheduler)
-	// Determine port for HTTP service.
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
+	// The default client is HTTP.
+	log.Printf("Listening on port 8080")
+	c, err := cloudevents.NewDefaultClient()
+	if err != nil {
+		log.Fatalf("failed to create client, %v", err)
 	}
-	// Start HTTP server.
-	log.Printf("Listening on port %s", port)
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		log.Fatal(err)
-	}
+	log.Fatal(c.StartReceiver(context.Background(), receive))
 }
 
 // [END event_receiver]
