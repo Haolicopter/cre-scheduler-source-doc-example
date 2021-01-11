@@ -1,4 +1,4 @@
-module github.com/GoogleCloudPlatform/golang-samples/eventarc/audit_storage
+module github.com/GoogleCloudPlatform/golang-samples/kuberun/events/scheduler
 
 go 1.13
 
