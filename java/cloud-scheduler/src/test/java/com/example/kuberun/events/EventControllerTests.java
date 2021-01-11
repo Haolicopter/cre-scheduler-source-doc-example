@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.cloudrun;
+package com.example.kuberun.events;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,8 +36,10 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 public class EventControllerTests {
 
-  @Autowired private MockMvc mockMvc;
-  String mockBody;
+  @Autowired
+  private MockMvc mockMvc;
+
+  private String mockBody;
 
   @Before
   public void setup() throws JSONException {
@@ -66,7 +68,7 @@ public class EventControllerTests {
   public void addInvalidMimetype() throws Exception {
     mockMvc
         .perform(post("/").contentType(MediaType.TEXT_HTML).content(mockBody))
-        .andExpect(status().isUnsupportedMediaType());
+        .andExpect(status().isBadRequest());
   }
 
   @Test
@@ -79,8 +81,8 @@ public class EventControllerTests {
                 .header("ce-id", "test")
                 .header("ce-source", "test")
                 .header("ce-type", "test")
-                .header("ce-specversion", "test")
-                .header("ce-subject", "test"))
+                .header("ce-specversion", "1.0")
+                .header("ce-time", "test"))
         .andExpect(status().isOk());
   }
 
@@ -93,19 +95,8 @@ public class EventControllerTests {
                 .content(mockBody)
                 .header("ce-source", "test")
                 .header("ce-type", "test")
-                .header("ce-specversion", "test")
-                .header("ce-subject", "test"))
-        .andExpect(status().isBadRequest());
-
-    mockMvc
-        .perform(
-            post("/")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mockBody)
-                .header("ce-id", "test")
-                .header("ce-source", "test")
-                .header("ce-type", "test")
-                .header("ce-specversion", "test"))
+                .header("ce-specversion", "1.0")
+                .header("ce-time", "test"))
         .andExpect(status().isBadRequest());
   }
 }

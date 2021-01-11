@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package com.example.cloudrun;
+package com.example.kuberun.events;
 
-// [START event_receiver]
+// [START scheduler_server]
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Application {
+
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
   }
 }
-// [END event_receiver]
+// [END scheduler_server]
