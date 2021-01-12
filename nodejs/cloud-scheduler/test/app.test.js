@@ -50,14 +50,18 @@ describe('Unit Tests', () => {
     it('with a minimally valid SCHEDULER event', async () => {
       await request
         .post('/')
+        .type('json')
         .set('ce-id', 'test-id')
-        .set('ce-time', 'test-time')
+        .set('ce-type', 'test-type')
+        .set('ce-specversion', '1.0')
+        .set('ce-source', 'https://localhost')
+        .set('ce-time', '2021-01-07T01:41:00.211Z')
         .send()
         .expect(200)
         .expect(() =>
           assert.ok(
             console.log.calledWith(
-              'Cloud Scheduler executed a job (id: test-id) at test-time'
+              'Cloud Scheduler executed a job (id: test-id) at 2021-01-07T01:41:00.211Z'
             )
           )
         );
