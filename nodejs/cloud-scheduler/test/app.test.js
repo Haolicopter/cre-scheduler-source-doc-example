@@ -56,12 +56,19 @@ describe('Unit Tests', () => {
         .set('ce-specversion', '1.0')
         .set('ce-source', 'https://localhost')
         .set('ce-time', '2021-01-07T01:41:00.211Z')
-        .send()
+        .send({custom_data: "test data"})
         .expect(200)
         .expect(() =>
           assert.ok(
             console.log.calledWith(
               'Cloud Scheduler executed a job (id: test-id) at 2021-01-07T01:41:00.211Z'
+            )
+          )
+        )
+        .expect(() =>
+          assert.ok(
+            console.log.calledWith(
+              'Custom data: test data'
             )
           )
         );

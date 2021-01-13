@@ -28,8 +28,9 @@ app.post('/', (req, res) => {
   }
 
   const receivedEvent = HTTP.toEvent({ headers: req.headers, body: req.body });
-  const data = toSchedulerJobData(receivedEvent);
-  console.log(`Cloud Scheduler executed a job (id: ${data.id}) at ${data.time}`);
+  const schedulerJobData = toSchedulerJobData(receivedEvent);
+  console.log(`Cloud Scheduler executed a job (id: ${schedulerJobData.id}) at ${schedulerJobData.time}`);
+  console.log(`Custom data: ${schedulerJobData.data.custom_data}`);
   
   // reply with a cloudevent
   const replyEvent = new CloudEvent({
